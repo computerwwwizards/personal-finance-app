@@ -7,17 +7,33 @@ ls:
   .{js,jsx,ts,tsx,mjs,cjs,res,resi,astro,mdx,scss,less,txt,sh}: exists:0
 
   docs:
-    .dir: kebab-case
+    .dir: kebab-case | regex:adr | regex:rfc | regex:notes | regex:stack
     .md: kebab-case
-    "{adr,rfc,notes}/*":
+
+    adr:
       .dir: kebab-case
       .md: kebab-case
+      "*":
+        .dir: kebab-case
+        .md: kebab-case
+
+    rfc:
+      .dir: kebab-case
+      .md: kebab-case
+
+    notes:
+      .dir: kebab-case
+      .md: kebab-case
+
     stack:
       .dir: kebab-case
       .md: kebab-case
       "*":
-        .dir: regex:trial | regex:approved | regex:forbidden | kebab-case
+        .dir: kebab-case
         .md: kebab-case
+        "*":
+          .dir: regex:trial | regex:approved | regex:forbidden
+          .md: kebab-case
 
   apps:
     .dir: regex:main | regex:css-ui-docs
