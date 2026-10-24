@@ -27,6 +27,7 @@ Optional brief explanation (280 chars max)
 |name|version|notes|
 |---|---|---|
 ```
+MUST use semver.
 
 For each category, there MUST exist a `kebab-case` directory inside `docs/stack/` containing a subdirectory for each status (`trial`, `approved`, or `forbidden`). Every status directory MUST contain a `kebab-case` markdown file for each technology listing its related ADRs and RFCs. For instance, if we have a category called `Web Frameworks` and one of its `Approved` technologies is `Astro`, a `<ROOT>/docs/stack/web-frameworks/approved/astro.md` file MUST exist.
 
@@ -61,7 +62,7 @@ Styling solutions, CSS frameworks, and design tokens tooling for styling applica
 
 |name|version|notes|
 |---|---|---|
-|Tailwind CSS|v4|Utility CSS engine coupled with native CSS cascade layers|
+|Tailwind CSS|^4|Utility CSS engine coupled with native CSS cascade layers|
 
 ### Forbidden
 
@@ -80,7 +81,7 @@ Tooling used to manage monorepo dependencies and workspaces.
 
 |name|version|notes|
 |---|---|---|
-|pnpm|workspaces|Fast, disk-space efficient package manager with workspace isolation|
+|pnpm|^12.14.0|Fast, disk-space efficient package manager with workspace isolation|
 
 ### Forbidden
 
@@ -99,7 +100,7 @@ Tools and contracts for validating monorepo directory topology and naming conven
 
 |name|version|notes|
 |---|---|---|
-|ls-lint|latest|Toolchain-agnostic filesystem layout linter|
+|ls-lint|^2|Toolchain-agnostic filesystem layout linter|
 
 ### Forbidden
 
