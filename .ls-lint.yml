@@ -44,3 +44,4 @@ ignore:
   - build
   - .astro
   - .turbo
+  - pnpm-lock.yaml
