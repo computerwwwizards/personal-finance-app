@@ -1,22 +1,26 @@
 ls:
   .dir: regex:apps | regex:packages | regex:docs
-  .{md}: kebab-case | regex:README | regex:CHANGELOG
+  .md: kebab-case | regex:README | regex:CHANGELOG
   .{json,yaml,yml}: kebab-case
 
   # @ai: default-deny all code extensions in a single line
   .{js,jsx,ts,tsx,mjs,cjs,res,resi,astro,mdx,scss,less,txt,sh}: exists:0
 
   docs:
-    .dir: regex:adr | regex:rfc | regex:notes
+    .dir: regex:adr | regex:rfc | regex:notes | regex:stack
     "{adr,rfc,notes}/*":
       .dir: kebab-case
+    stack:
+      .dir: kebab-case
+      "*":
+        .dir: regex:trial | regex:approved | regex:forbidden
 
   apps:
     .dir: regex:main | regex:css-ui-docs
 
     main:
       .dir: kebab-case
-      .{css,js,mjs, ts}: kebab-case | camelCase
+      .{css,js,mjs,ts}: kebab-case | camelCase
       .tsx: PascalCase | kebab-case
       .{res,resi}: PascalCase | camelCase
 
@@ -25,20 +29,10 @@ ls:
       .{md,mdx}: kebab-case
       .{astro,tsx,jsx}: PascalCase | kebab-case
       .{res,resi}: PascalCase | camelCase
-      .{js,mjs,css, ts}: kebab-case | camelCase
+      .{js,mjs,css,ts}: kebab-case | camelCase
 
   packages:
     .dir: regex:styles
     styles:
       .dir: kebab-case
       .css: kebab-case
-      .json: regex:package # @ai: only allows package.json, blocks other .json files
-      .{yaml,yml,sh,html,svg,png,jpg}: exists:0
-
-ignore:
-  - .git
-  - node_modules
-  - dist
-  - .astro
-  - .turbo
-  - pnpm-lock.yaml
