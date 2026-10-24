@@ -9,15 +9,15 @@ ls:
   docs:
     .dir: kebab-case
     .md: kebab-case
-    "*":
+    "{adr,rfc,notes}/*":
+      .dir: kebab-case
+      .md: kebab-case
+    stack:
       .dir: kebab-case
       .md: kebab-case
       "*":
-        .dir: kebab-case
+        .dir: regex:trial | regex:approved | regex:forbidden | kebab-case
         .md: kebab-case
-        "*":
-          .dir: kebab-case
-          .md: kebab-case
 
   apps:
     .dir: regex:main | regex:css-ui-docs
