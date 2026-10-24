@@ -9,22 +9,9 @@ ls:
   docs:
     .dir: kebab-case | regex:adr | regex:rfc | regex:notes | regex:stack
     .md: kebab-case
-
-    adr:
+    "{adr,rfc,notes}/*":
       .dir: kebab-case
       .md: kebab-case
-      "*":
-        .dir: kebab-case
-        .md: kebab-case
-
-    rfc:
-      .dir: kebab-case
-      .md: kebab-case
-
-    notes:
-      .dir: kebab-case
-      .md: kebab-case
-
     stack:
       .dir: kebab-case
       .md: kebab-case
