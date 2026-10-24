@@ -52,3 +52,4 @@ ignore:
   - .astro
   - .turbo
   - pnpm-lock.yaml
+  - .github
