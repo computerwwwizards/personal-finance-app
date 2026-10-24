@@ -36,3 +36,11 @@ ls:
     styles:
       .dir: kebab-case
       .css: kebab-case
+
+ignore:
+  - .git
+  - node_modules
+  - dist
+  - build
+  - .astro
+  - .turbo
