@@ -1,0 +1,80 @@
+name: Airgapped LS-Lint Linter
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ls-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Precompiled ls-lint 2.3.2 Binary
+        run: |
+          curl -fsSL https://github.com/loeffel-io/ls-lint/releases/download/v2.3.2/ls-lint-linux-amd64 -o ls-lint
+          echo "571e382a0908fd22393869fd0dff575e6f17a6130211930fc43b37a1e0630068  ls-lint" | sha256sum -c -
+          sudo install -m 755 ls-lint /usr/local/bin/ls-lint
+          rm -f ls-lint
+          ls-lint --version
+
+      - name: Run ls-lint in Airgapped Network Namespace
+        run: |
+          set +e
+          RUNNER_UID=$(id -u "$USER")
+          RUNNER_GID=$(id -g "$USER")
+
+          LSLINT_JSON=$(sudo unshare -n -- setpriv \
+            --reuid="$RUNNER_UID" \
+            --regid="$RUNNER_GID" \
+            --init-groups \
+            --inh-caps=-all \
+            --no-new-privs \
+            ls-lint -error-output-format json 2>&1)
+          LSLINT_EXIT=$?
+          set -e
+
+          # 1. Emit inline PR Annotations
+          if [ -n "$LSLINT_JSON" ] && [ "$LSLINT_JSON" != "{}" ]; then
+            echo "$LSLINT_JSON" | jq -r '
+              to_entries[] |
+              .key as $path |
+              .value | to_entries[] |
+              .key as $rule_type |
+              .value[] as $rule |
+              "::error file=\($path),title=ls-lint (\($rule_type))::\($path) failed rule \($rule_type): \($rule)"
+            '
+          fi
+
+          # 2. Build Markdown Report in GitHub Step Summary
+          {
+            echo "## LS-Lint File & Directory Linting Report"
+            if [ -z "$LSLINT_JSON" ] || [ "$LSLINT_JSON" = "{}" ]; then
+              echo "✅ **No file or directory naming violations found.**"
+            else
+              TOTAL_ERRORS=$(echo "$LSLINT_JSON" | jq -r '[ to_entries[] | .value | to_entries[] | .value[] ] | length')
+              echo "🔴 **Errors:** $TOTAL_ERRORS"
+              echo ""
+              echo "| Path | Rule Type | Failed Rule |"
+              echo "| :--- | :--- | :--- |"
+              echo "$LSLINT_JSON" | jq -r '
+                to_entries[] |
+                .key as $path |
+                .value | to_entries[] |
+                .key as $rule_type |
+                .value[] as $rule |
+                "| `\($path)` | `\($rule_type)` | `\($rule)` |"
+              '
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # 3. Fail workflow strictly on Error-level violations
+          if [ $LSLINT_EXIT -ne 0 ]; then
+            echo "::error::ls-lint detected file/directory naming violations. Failing workflow."
+            exit $LSLINT_EXIT
+          fi
