@@ -6,13 +6,13 @@ ls:
   # @ai: default-deny all code extensions in a single line
   .{js,jsx,ts,tsx,mjs,cjs,res,resi,astro,mdx,scss,less,txt,sh}: exists:0
 
-  docs:
+  docs/*:
     .dir: kebab-case | regex:adr | regex:rfc | regex:notes | regex:stack
     .md: kebab-case
     "{adr,rfc,notes}/*":
       .dir: kebab-case
       .md: kebab-case
-    stack:
+    stack/*:
       .dir: kebab-case
       .md: kebab-case
       "*":
@@ -22,7 +22,7 @@ ls:
           .dir: regex:trial | regex:approved | regex:forbidden
           .md: kebab-case
 
-  apps:
+  apps/*:
     .dir: regex:main | regex:css-ui-docs
 
     main:
@@ -38,7 +38,7 @@ ls:
       .{res,resi}: PascalCase | camelCase
       .{js,mjs,css,ts}: kebab-case | camelCase
 
-  packages:
+  packages/*:
     .dir: regex:styles
     styles:
       .dir: kebab-case
