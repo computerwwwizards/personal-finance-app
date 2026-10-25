@@ -17,8 +17,8 @@ jobs:
 
       - name: Install Precompiled Vale 3.25.1 Binary
         run: |
-          curl -fsSL https://github.com/vale-cli/vale/releases/download/v3.25.1/vale_3.25.1_Linux_arm64.tar.gz -o vale.tar.gz
-          echo "sha256:4bf5c5176b682b1da0830f471584d3494f1c2e27ee3029e1ad6f6661d4962182  vale.tar.gz" | sha256sum -c -
+          curl -fsSL https://github.com/vale-cli/vale/releases/download/v3.25.1/vale_3.25.1_Linux_64-bit.tar.gz -o vale.tar.gz
+          echo "4bf5c5176b682b1da0830f471584d3494f1c2e27ee3029e1ad6f6661d4962182  vale.tar.gz" | sha256sum -c -
           sudo tar -xzf vale.tar.gz -C /usr/local/bin vale
           rm -f vale.tar.gz
           vale --version
