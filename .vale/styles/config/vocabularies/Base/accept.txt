@@ -8,6 +8,7 @@ Astro's
 DSL
 Eleventy
 GNU
+Hygen
 ITCSS
 MDX
 Oxlint
