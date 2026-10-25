@@ -125,3 +125,22 @@ Tools and frameworks used for static analysis, linting, and style enforcement of
 
 |name|version|notes|
 |---|---|---|
+
+## Runtime
+JavaScript runtime environments used to execute workspace applications and scripts.
+
+### Trial
+
+|name|version|notes|
+|---|---|---|
+
+### Approved
+
+|name|version|notes|
+|---|---|---|
+|Node.js|^26|Standard JavaScript runtime with built-in permission model|
+
+### Forbidden
+
+|name|version|notes|
+|---|---|---|
