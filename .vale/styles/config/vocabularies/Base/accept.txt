@@ -24,7 +24,6 @@ Tera
 TOML
 TSX
 UNIX
-Utils
 Vue
 Zod
 proselint

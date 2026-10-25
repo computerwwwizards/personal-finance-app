@@ -145,7 +145,7 @@ JavaScript runtime environments used to execute workspace applications and scrip
 |name|version|notes|
 |---|---|---|
 
-## Boilerplate Utils
+## Boilerplate Utilities
 Tools and utilities used for scaffolding and generating consistent workspace templates and code assets.
 
 ### Trial
