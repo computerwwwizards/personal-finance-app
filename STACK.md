@@ -144,3 +144,22 @@ JavaScript runtime environments used to execute workspace applications and scrip
 
 |name|version|notes|
 |---|---|---|
+
+## Boilerplate Utils
+Tools and utilities used for scaffolding and generating consistent workspace templates and code assets.
+
+### Trial
+
+|name|version|notes|
+|---|---|---|
+|plop|^4.0.5|Micro-generator framework for scaffolding consistent code components and assets|
+
+### Approved
+
+|name|version|notes|
+|---|---|---|
+
+### Forbidden
+
+|name|version|notes|
+|---|---|---|
