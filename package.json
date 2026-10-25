@@ -19,5 +19,9 @@
   },
   "devDependencies": {
     "plop": "^4.0.5"
+  },
+  "optionalDependencies": {
+    "@ls-lint/ls-lint": "^2.2.3",
+    "@vvago/vale": "^3.14.1"
   }
 }
