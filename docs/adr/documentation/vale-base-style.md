@@ -17,7 +17,7 @@ Following our adoption of Vale for AST-aware prose linting (`docs/adr/documentat
 * **Microsoft Writing Style Guide**
 
 ## Decision Outcome
-Chosen option: "**Google Developer Documentation Style Guide**", because it provides highly technical, structured, and precise guidelines tailored for developer-facing documentation and technical specifications. In contrast, evaluation of the Microsoft Writing Style Guide revealed it is oriented toward conversational, consumer-facing software and UI copy, making it less technical and less effective for AI agents operating on software engineering codebases.
+Chosen option: "**Google Developer Documentation Style Guide,**" because it provides highly technical, structured, and precise guidelines tailored for developer-facing documentation and technical specifications. In contrast, evaluation of the Microsoft Writing Style Guide revealed it is oriented toward conversational, consumer-facing software and UI copy, making it less technical and less effective for AI agents operating on software engineering codebases.
 
 ### Benefits
 * Good, because Google's technical focus emphasizes concise, imperative, and structured prose, which significantly improves prompt accuracy and text parsing for AI language models.

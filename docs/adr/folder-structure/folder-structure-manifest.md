@@ -5,7 +5,7 @@ status: "live"
 # ADR: Use `ls-lint` (`.ls-lint.yml`) for Toolchain-Agnostic Monorepo Filesystem Layout Validation
 
 ## Context and Problem Statement
-In a multi-package `pnpm` monorepo, maintaining a consistent directory topology, enforcing file/folder naming conventions across mixed extensions (e.g., `PascalCase` for `.tsx` components and `kebab-case` for `.ts` utilities), and preventing undeclared root-level directories require automated structural validation. Without a machine-readable filesystem contract, workspaces drift in directory layout, unauthorized root directories proliferate, and automated tooling or AI agents lack a deterministic blueprint of the repository's physical structure.
+In a multi-package `pnpm` monorepo, maintaining a consistent directory topology, enforcing file/folder naming conventions across mixed extensions (for example, `PascalCase` for `.tsx` components and `kebab-case` for `.ts` utilities), and preventing undeclared root-level directories require automated structural validation. Without a machine-readable filesystem contract, workspaces drift in directory layout, unauthorized root directories proliferate, and automated tooling or AI agents lack a deterministic blueprint of the repository's physical structure.
 
 ## Decision Drivers
 * **Toolchain and Language Agnosticism:** The validation engine must operate independently of the JavaScript AST/linter pipeline (ESLint) so the monorepo can adopt alternative toolchains (such as Biome or Oxlint) or non-TypeScript workspaces (Go, Rust, Python) without breaking filesystem checks.
@@ -20,12 +20,12 @@ In a multi-package `pnpm` monorepo, maintaining a consistent directory topology,
 * **Custom Declarative JSON/YAML Manifest with Node.js/Vitest Validator**
 
 ## Decision Outcome
-Chosen option: "**`ls-lint` (`.ls-lint.yml`)**", because it provides an actively maintained, standalone Go binary (distributed via `@ls-lint/ls-lint`) that validates directory trees, cascading extension casing rules, and file existence constraints in milliseconds without coupling repository structure enforcement to ESLint or requiring custom validation code.
+Chosen option: "**`ls-lint` (`.ls-lint.yml`),**" because it provides an actively maintained, standalone Go binary (distributed via `@ls-lint/ls-lint`) that validates directory trees, cascading extension casing rules, and file existence constraints in milliseconds without coupling repository structure enforcement to ESLint or requiring custom validation code.
 
 ### Benefits
 * Good, because execution is decoupled from Node.js AST parsers, enabling zero-friction migration from ESLint to Biome or Oxlint and supporting polyglot directories natively.
 * Good, because the YAML hierarchy under the `ls:` key mirrors the physical directory tree, cascading parent rules downward and supporting glob-based workspace scopes (`packages/*/src`) and multi-config composition (`--config`).
-* Good, because full-repository filesystem scans execute in ~5–15ms via a compiled Go binary rather than booting a Node.js linting runtime.
+* Good, because full-repository filesystem scans execute in ~5–15 ms via a compiled Go binary rather than booting a Node.js linting runtime.
 
 ### Trade-offs
 * Bad, because restricting a directory to a strict allowlist of subfolder names requires overriding `.dir` using pipe-separated exact matches (`.dir: regex:apps | regex:packages`) and explicitly resetting `.dir: kebab-case` in child directories to prevent the allowlist from cascading downward.
@@ -41,7 +41,7 @@ A standalone, cross-platform filesystem linter written in Go and configured via 
 
 * Good, because it maps file extensions (`.ts`, `.tsx`, `.css`, `.dir`) directly to built-in naming primitives (`kebab-case`, `PascalCase`, `camelCase`, `snake_case`) and existence constraints (`exists:0`, `exists:1`) inside the same directory scope.
 * Good, because it has zero dependency on the JavaScript compiler or linter toolchain, executing as a static binary via npm wrapper (`@ls-lint/ls-lint`).
-* Neutral, because it ignores untracked build artifacts only when explicitly listed under the `ignore:` array (e.g., `node_modules`, `dist`, `.git`).
+* Neutral, because it ignores untracked build artifacts only when explicitly listed under the `ignore:` array (for example, `node_modules`, `dist`, `.git`).
 * Bad, because cascading `.dir` rules require child directories to explicitly redefine `.dir` whenever the parent directory uses an exact-match allowlist (`regex:apps | regex:packages`).
 
 ### `eslint-plugin-project-structure` (`projectStructure.json` / TypeScript Config)
