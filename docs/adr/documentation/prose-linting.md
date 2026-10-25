@@ -21,7 +21,7 @@ Without syntactic and lexical boundaries, naive linters parse fenced code blocks
 * **GNU diction / style (`style`)**
 
 ## Decision Outcome
-Chosen option: "**Vale (`v3.14.1`)**", because it combines AST-driven markup pruning and a zero-dependency Go binary with turnkey support for the built-in `Vale` style and declarative composition of industry-standard packages (`Google`, `Microsoft`) via `vale sync`.
+Chosen option: "**Vale (`v3.14.1`),**" because it combines AST-driven markup pruning and a zero-dependency Go binary with turnkey support for the built-in `Vale` style and declarative composition of industry-standard packages (`Google`, `Microsoft`) via `vale sync`.
 
 ### Benefits
 * Good, because engineers get immediate enforcement using the built-in `Vale` style and upstream `Google` or `Microsoft` developer documentation packages without authoring a single custom rule.
