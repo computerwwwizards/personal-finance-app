@@ -35,7 +35,16 @@ jobs:
       - name: Run Vale in Airgapped Network Namespace
         run: |
           set +e
-          VALE_JSON=$(unshare -r -n vale --config="$CONF_PATH" --output=JSON .)
+          RUNNER_UID=$(id -u "$USER")
+          RUNNER_GID=$(id -g "$USER")
+
+          VALE_JSON=$(sudo unshare -n -- setpriv \
+            --reuid="$RUNNER_UID" \
+            --regid="$RUNNER_GID" \
+            --init-groups \
+            --inh-caps=-all \
+            --no-new-privs \
+            vale --config="$CONF_PATH" --output=JSON .)
           VALE_EXIT=$?
           set -e
 
@@ -76,7 +85,7 @@ jobs:
                 to_entries[] |
                 .key as $file |
                 .value[] |
-                "| `\($file)` | `\(.Line):\(.Span[0])` | **\(.Severity | ascii_upcase)** | `\(.Check)` | \(.Message | gsub("\\|"; "\\|")) |"
+                "| `\($file)` | `\(.Line):\(.Span[0])-\(.Span[1])` | **\(.Severity | ascii_upcase)** | `\(.Check)` | \(.Message | gsub("\\|"; "\\|")) |"
               '
             fi
           } >> "$GITHUB_STEP_SUMMARY"
