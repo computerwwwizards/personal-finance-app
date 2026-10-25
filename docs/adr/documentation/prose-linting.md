@@ -53,7 +53,7 @@ A syntax-aware, concurrent prose linter written in Go (`github.com/vale-cli/vale
 A Python-based CLI prose linter that aggregates stylistic advice from literary editors (Garner, Strunk & White, Orwell) into hardcoded Python regular-expression modules evaluated over raw text buffers.
 
 * Good, because its built-in checks work out of the box for literary prose without initial configuration.
-* Neutral, because it outputs standard Unix `line:column` or JSON diagnostics compatible with generic linter aggregators.
+* Neutral, because it outputs standard UNIX `line:column` or JSON diagnostics compatible with generic linter aggregators.
 * Bad, because its hardcoded rules target literary essays rather than software engineering specifications, lacking support for technical style standards like the Google or Microsoft developer documentation guides.
 * Bad, because it lacks a markup AST parser; it scans raw character streams with regular expressions, causing inline code snippets, CLI flags, and URLs in technical specs to trigger massive false-positive cascades.
 * Bad, because it requires provisioning a Python runtime and dependency tree, executing single-threaded regex passes that scale poorly.
