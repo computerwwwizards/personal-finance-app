@@ -106,3 +106,22 @@ Tools and contracts for validating monorepo directory topology and naming conven
 
 |name|version|notes|
 |---|---|---|
+
+## Prose Linters
+Tools and frameworks used for static analysis, linting, and style enforcement of natural language prose and technical documentation.
+
+### Trial
+
+|name|version|notes|
+|---|---|---|
+
+### Approved
+
+|name|version|notes|
+|---|---|---|
+|Vale|3.14.1||
+
+### Forbidden
+
+|name|version|notes|
+|---|---|---|
