@@ -17,7 +17,12 @@
       "version": "^12.14.0"
     }
   },
-  "devDependencies": {
+  "peerDependencies": {
     "plop": "^4.0.5"
+  },
+  "peerDependenciesMeta": {
+    "plop": {
+      "optional": true
+    }
   }
 }

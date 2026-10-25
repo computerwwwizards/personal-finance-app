@@ -30,7 +30,7 @@ Chosen option: "**Plop (`^4.0.5`),**" under **Trial** status. Plop provides a li
 * Bad, because custom helper logic in Handlebars templates can become complex if generators grow beyond simple file scaffolding.
 
 ### Confirmation
-Compliance is confirmed by inspecting `package.json` `devDependencies` for `plop: "^4.0.5"`, registering the tool under `Trial` in `STACK.md`, and validating the existence of the decision record in `docs/adr/boilerplate-utilities/plop-template-generation.md`.
+Compliance is confirmed by inspecting `package.json` `peerDependencies` for `plop: "^4.0.5"` (with `peerDependenciesMeta.plop.optional: true`), registering the tool under `Trial` in `STACK.md`, and validating the existence of the decision record in `docs/adr/boilerplate-utilities/plop-template-generation.md`.
 
 ## Pros and Cons of the Options
 
