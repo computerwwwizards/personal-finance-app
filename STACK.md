@@ -43,7 +43,7 @@ Frameworks used to construct and compile our web applications and site experienc
 
 |name|version|notes|link|
 |---|---|---|---|
-|Astro|7.4|Static site compiler for apps and docs|[astro](./docs/stack/web-frameworks/approved/astro.md)|
+|Astro|7.4|Static site compiler for apps and docs|[Astro](./docs/stack/web-frameworks/approved/astro.md)|
 
 ### Forbidden
 
@@ -62,7 +62,7 @@ Styling solutions, CSS frameworks, and design tokens tooling for styling applica
 
 |name|version|notes|link|
 |---|---|---|---|
-|Tailwind CSS|^4|Utility CSS engine coupled with native CSS cascade layers|[tailwind-css](./docs/stack/web-styling/approved/tailwind-css.md)|
+|Tailwind CSS|^4|Utility CSS engine coupled with native CSS cascade layers|[Tailwind CSS](./docs/stack/web-styling/approved/tailwind-css.md)|
 
 ### Forbidden
 
@@ -119,7 +119,7 @@ Tools and frameworks used for static analysis, linting, and style enforcement of
 
 |name|version|notes|link|
 |---|---|---|---|
-|Vale|3.14.1||[vale](./docs/stack/prose-linters/approved/vale.md)|
+|Vale|3.14.1||[Vale](./docs/stack/prose-linters/approved/vale.md)|
 
 ### Forbidden
 
@@ -138,7 +138,7 @@ JavaScript runtime environments used to execute workspace applications and scrip
 
 |name|version|notes|link|
 |---|---|---|---|
-|Node.js|^26|Standard JavaScript runtime with built-in permission model|[node-js](./docs/stack/runtime/approved/node-js.md)|
+|Node.js|^26|Standard JavaScript runtime with built-in permission model|[Node.js](./docs/stack/runtime/approved/node-js.md)|
 
 ### Forbidden
 

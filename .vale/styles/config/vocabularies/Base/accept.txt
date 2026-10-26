@@ -31,3 +31,6 @@ unbuilt
 uncompilable
 unlayered
 unmutated
+semver
+monorepo
+pnpm
