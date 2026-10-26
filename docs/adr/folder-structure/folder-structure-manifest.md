@@ -8,7 +8,7 @@ status: "live"
 In a multi-package `pnpm` monorepo, maintaining a consistent directory topology, enforcing file/folder naming conventions across mixed extensions (for example, `PascalCase` for `.tsx` components and `kebab-case` for `.ts` utilities), and preventing undeclared root-level directories require automated structural validation. Without a machine-readable filesystem contract, workspaces drift in directory layout, unauthorized root directories proliferate, and automated tooling or AI agents lack a deterministic blueprint of the repository's physical structure.
 
 ## Decision Drivers
-* **Toolchain and Language Agnosticism:** The validation engine must operate independently of the JavaScript AST/linter pipeline (ESLint) so the monorepo can adopt alternative toolchains (such as Biome or Oxlint) or non-TypeScript workspaces (Go, Rust, Python) without breaking filesystem checks.
+* **Toolchain and Language Agnosticism:** The validation engine must operate independently of the JavaScript Abstract Syntax Tree (AST)/linter pipeline (ESLint) so the monorepo can adopt alternative toolchains (such as Biome or Oxlint) or non-TypeScript workspaces (Go, Rust, Python) without breaking filesystem checks.
 * **Hierarchical Rule Inheritance:** Subdirectories and individual workspace packages must automatically inherit baseline root rules while supporting localized overrides for specific subtrees (`apps/*`, `packages/*/src/components`).
 * **Co-located Extension Casing Primitives:** The specification format must support multiple casing conventions (`kebab-case`, `PascalCase`, `camelCase`) mapped per file extension within the same directory without requiring complex raw regular expressions for standard naming styles.
 * **Strict Directory Allowlisting & Existence Checks:** The format must be capable of locking top-level directory creation (`apps`, `packages`), requiring mandatory workspace entry points (`exists:1`), and blocking forbidden file patterns (`exists:0`).
@@ -57,5 +57,5 @@ An in-house schema (`layout.json` or `layout.yaml`) paired with a custom recursi
 
 * Good, because the schema syntax and inheritance semantics can be tailored to exact workspace preferences without third-party tool constraints.
 * Neutral, because it uses standard Node.js `fs` and `glob` primitives already present in the monorepo test runner.
-* Bad, because designing a custom JSON/YAML syntax that cleanly separates directory structure from node metadata (`strict`, `optional`, `casing`, `forbidden`) either introduces verbose `@meta` wrapper objects or requires maintaining a custom DSL parser.
+* Bad, because designing a custom JSON/YAML syntax that cleanly separates directory structure from node metadata (`strict`, `optional`, `casing`, `forbidden`) either introduces verbose `@meta` wrapper objects or requires maintaining a custom Domain-Specific Language (DSL) parser.
 * Bad, because the engineering team must maintain the validation engine, error reporting, and glob resolution logic internally rather than relying on an established open-source tool.
