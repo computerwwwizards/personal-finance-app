@@ -16,8 +16,5 @@
       "name": "pnpm",
       "version": "^12.14.0"
     }
-  },
-  "devDependencies": {
-    "plop": "^4.0.5"
   }
 }
