@@ -14,18 +14,18 @@ Optional brief explanation (280 chars max)
 
 ### Trial
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ### Approved
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ### Forbidden
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 ```
 MUST use semver.
 
@@ -36,130 +36,130 @@ Frameworks used to construct and compile our web applications and site experienc
 
 ### Trial
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ### Approved
 
-|name|version|notes|
-|---|---|---|
-|Astro|7.4|Static site compiler for apps and docs|
+|name|version|notes|link|
+|---|---|---|---|
+|Astro|7.4|Static site compiler for apps and docs|[`astro.md`](./docs/stack/web-frameworks/approved/astro.md)|
 
 ### Forbidden
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ## Web Styling
 Styling solutions, CSS frameworks, and design tokens tooling for styling applications.
 
 ### Trial
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ### Approved
 
-|name|version|notes|
-|---|---|---|
-|Tailwind CSS|^4|Utility CSS engine coupled with native CSS cascade layers|
+|name|version|notes|link|
+|---|---|---|---|
+|Tailwind CSS|^4|Utility CSS engine coupled with native CSS cascade layers|[`tailwind-css.md`](./docs/stack/web-styling/approved/tailwind-css.md)|
 
 ### Forbidden
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ## Package Managers
 Tooling used to manage monorepo dependencies and workspaces.
 
 ### Trial
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ### Approved
 
-|name|version|notes|
-|---|---|---|
-|pnpm|^12.14.0|Fast, disk-space efficient package manager with workspace isolation|
+|name|version|notes|link|
+|---|---|---|---|
+|pnpm|^12.14.0|Fast, disk-space efficient package manager with workspace isolation|[`pnpm.md`](./docs/stack/package-managers/approved/pnpm.md)|
 
 ### Forbidden
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ## Folder Structure
 Tools and contracts for validating monorepo directory topology and naming conventions.
 
 ### Trial
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ### Approved
 
-|name|version|notes|
-|---|---|---|
-|ls-lint|^2|Toolchain-agnostic filesystem layout linter|
+|name|version|notes|link|
+|---|---|---|---|
+|ls-lint|^2|Toolchain-agnostic filesystem layout linter|[`ls-lint.md`](./docs/stack/folder-structure/approved/ls-lint.md)|
 
 ### Forbidden
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ## Prose Linters
 Tools and frameworks used for static analysis, linting, and style enforcement of natural language prose and technical documentation.
 
 ### Trial
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ### Approved
 
-|name|version|notes|
-|---|---|---|
-|Vale|3.14.1||
+|name|version|notes|link|
+|---|---|---|---|
+|Vale|3.14.1||[`vale.md`](./docs/stack/prose-linters/approved/vale.md)|
 
 ### Forbidden
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ## Runtime
 JavaScript runtime environments used to execute workspace applications and scripts.
 
 ### Trial
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ### Approved
 
-|name|version|notes|
-|---|---|---|
-|Node.js|^26|Standard JavaScript runtime with built-in permission model|
+|name|version|notes|link|
+|---|---|---|---|
+|Node.js|^26|Standard JavaScript runtime with built-in permission model|[`node-js.md`](./docs/stack/runtime/approved/node-js.md)|
 
 ### Forbidden
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ## Boilerplate Utilities
 Tools and utilities used for scaffolding and generating consistent workspace templates and code assets.
 
 ### Trial
 
-|name|version|notes|
-|---|---|---|
-|plop|^4.0.5|Micro-generator framework for scaffolding consistent code components and assets|
+|name|version|notes|link|
+|---|---|---|---|
+|plop|^4.0.5|Micro-generator framework for scaffolding consistent code components and assets|[`plop.md`](./docs/stack/boilerplate-utilities/trial/plop.md)|
 
 ### Approved
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
 
 ### Forbidden
 
-|name|version|notes|
-|---|---|---|
+|name|version|notes|link|
+|---|---|---|---|
