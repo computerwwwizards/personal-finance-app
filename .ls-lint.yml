@@ -39,10 +39,14 @@ ls:
       .{js,mjs,css,ts}: kebab-case | camelCase
 
   packages/*:
-    .dir: regex:styles
+    .dir: regex:styles | regex:non-toolchain-tools
     styles:
       .dir: kebab-case
       .css: kebab-case
+    non-toolchain-tools:
+      .dir: kebab-case
+      .md: kebab-case
+      .json: kebab-case
 
 ignore:
   - .git

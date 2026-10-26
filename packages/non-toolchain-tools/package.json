@@ -1,0 +1,9 @@
+{
+  "name": "@computerwwwizard/non-toolchain-tools",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "plop": "^4.0.5"
+  }
+}

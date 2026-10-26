@@ -27,6 +27,8 @@ UNIX
 Vue
 Zod
 proselint
+toolchain
+toolchains
 unbuilt
 uncompilable
 unlayered
