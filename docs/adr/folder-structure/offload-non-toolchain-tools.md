@@ -5,7 +5,7 @@ status: "live"
 # ADR: Offload Non-Toolchain Development Tools to Dedicated Package
 
 ## Context and Problem Statement
-In a monorepo workspace, CI/CD automated build and testing pipelines require downloading and installing all dependencies declared at the repository root or within application target trees. Including development utilities—such as code scaffolding tools (e.g., Plop)—in root `devDependencies` forces CI/CD environments to fetch dependencies that are never executed during automated build or test workflows. However, these tools remain essential as pre-commit guardrails and productivity utilities for human developers and AI agents operating within local environments. We need a strategy to offload non-toolchain development tools from CI/CD environments without losing local developer experience and guardrail capabilities.
+In a monorepo workspace, CI/CD automated build and testing pipelines require downloading and installing all dependencies declared at the repository root or within application target trees. Including development utilities—such as code scaffolding tools (for example, Plop)—in root `devDependencies` forces CI/CD environments to fetch dependencies that are never executed during automated build or test workflows. However, these tools remain essential as pre-commit guardrails and productivity utilities for human developers and AI agents operating within local environments. We need a strategy to offload non-toolchain development tools from CI/CD environments without losing local developer experience and guardrail capabilities.
 
 ## Decision Drivers
 * **CI/CD Efficiency & Bandwidth:** CI/CD runners should only download dependencies required for building, testing, linting, and deploying application artifacts, minimizing installation duration and network consumption.
@@ -15,7 +15,7 @@ In a monorepo workspace, CI/CD automated build and testing pipelines require dow
 ## Considered Options
 * **Dedicated Workspace Package (`@computerwwwizard/non-toolchain-tools`)**
 * **Root `devDependencies` Co-location**
-* **On-Demand Dynamic CLI Execution (e.g., `pnpm dlx`)**
+* **On-Demand Dynamic CLI Execution (for example, `pnpm dlx`)**
 
 ## Decision Outcome
 Chosen option: "**Dedicated Workspace Package (`@computerwwwizard/non-toolchain-tools`),**" because co-locating non-toolchain utilities (such as Plop) inside a designated workspace package under `packages/non-toolchain-tools` isolates local development tools from target CI/CD pipeline builds, allowing automated workflows to skip fetching non-toolchain packages while preserving version-locked local developer and agent guardrails.
@@ -46,7 +46,7 @@ Listing all developer tools (including Plop and generator CLI utilities) directl
 * Good, because root `devDependencies` binaries are immediately accessible across the monorepo without workspace filtering.
 * Bad, because CI/CD build environments are forced to download non-essential scaffolding packages during every pipeline run.
 
-### On-Demand Dynamic CLI Execution (e.g., `pnpm dlx`)
+### On-Demand Dynamic CLI Execution (for example, `pnpm dlx`)
 Fetching CLI tools dynamically at execution time without adding package dependencies to the monorepo.
 
 * Good, because zero package dependencies are stored in the codebase.
