@@ -1,0 +1,84 @@
+name: Airgapped Stylelint Linter
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stylelint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Stylelint Dependencies via npm (No Scripts)
+        run: |
+          npm install stylelint@^17.16.0 stylelint-config-standard@^39.0.0 --ignore-scripts --no-audit
+
+      - name: Run Stylelint in Airgapped Network Namespace
+        run: |
+          set +e
+          RUNNER_UID=$(id -u "$USER")
+          RUNNER_GID=$(id -g "$USER")
+
+          STYLELINT_JSON=$(sudo unshare -n -- setpriv \
+            --reuid="$RUNNER_UID" \
+            --regid="$RUNNER_GID" \
+            --init-groups \
+            --inh-caps=-all \
+            --no-new-privs \
+            ./node_modules/.bin/stylelint "**/*.css" --allow-empty-input -f json 2>&1)
+          STYLELINT_EXIT=$?
+          set -e
+
+          if [ $STYLELINT_EXIT -ne 0 ] && [ -z "$STYLELINT_JSON" ]; then
+            echo "::error::Stylelint failed due to a execution error."
+            exit $STYLELINT_EXIT
+          fi
+
+          # 1. Emit inline PR Annotations
+          if [ -n "$STYLELINT_JSON" ] && [ "$STYLELINT_JSON" != "[]" ]; then
+            echo "$STYLELINT_JSON" | jq -r '
+              .[] |
+              .source as $file |
+              .warnings[] |
+              (if .severity == "error" then "error" else "warning" end) as $level |
+              "::\($level) file=\($file),line=\(.line),col=\(.column),title=\(.rule) (\(.severity))::\(.text)"
+            '
+          fi
+
+          # 2. Build Markdown Report in GitHub Step Summary
+          {
+            echo "## Stylelint Report"
+            if [ -z "$STYLELINT_JSON" ] || [ "$STYLELINT_JSON" = "[]" ]; then
+              echo "✅ **No CSS style errors found.**"
+            else
+              TOTAL_ERRORS=$(echo "$STYLELINT_JSON" | jq -r '[ .[].warnings[] | select(.severity=="error") ] | length')
+              TOTAL_WARNINGS=$(echo "$STYLELINT_JSON" | jq -r '[ .[].warnings[] | select(.severity=="warning") ] | length')
+              echo "🔴 **Errors:** $TOTAL_ERRORS | 🟡 **Warnings:** $TOTAL_WARNINGS"
+              echo ""
+              echo "| File | Line:Col | Severity | Rule | Message |"
+              echo "| :--- | :--- | :--- | :--- | :--- |"
+              echo "$STYLELINT_JSON" | jq -r '
+                .[] |
+                .source as $file |
+                .warnings[] |
+                "| `\($file)` | `\(.line):\(.column)` | **\(.severity | ascii_upcase)** | `\(.rule)` | \(.text | gsub("\\|"; "\\|")) |"
+              '
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # 3. Fail workflow strictly on Error-level violations
+          if [ $STYLELINT_EXIT -ne 0 ]; then
+            echo "::error::Stylelint detected CSS violations. Failing workflow."
+            exit $STYLELINT_EXIT
+          fi

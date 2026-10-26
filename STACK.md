@@ -62,6 +62,7 @@ Styling solutions, CSS frameworks, and design tokens tooling for styling applica
 
 |name|version|notes|link|
 |---|---|---|---|
+|Stylelint|^17.16.0|Mighty CSS linter for standard, custom, and nested style rules|[`stylelint.md`](./docs/stack/web-styling/approved/stylelint.md)|
 |Tailwind CSS|^4|Utility CSS engine coupled with native CSS cascade layers|[`tailwind-css.md`](./docs/stack/web-styling/approved/tailwind-css.md)|
 
 ### Forbidden

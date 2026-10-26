@@ -16,5 +16,8 @@
       "name": "pnpm",
       "version": "^12.14.0"
     }
+  },
+  "devDependencies": {
+    "stylelint-config-standard": "^39.0.0"
   }
 }
