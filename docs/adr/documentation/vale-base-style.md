@@ -5,7 +5,7 @@ status: "live"
 # ADR: Adopt Google Style Guide as Base Prose Style for Vale
 
 ## Context and Problem Statement
-Following our adoption of Vale for AST-aware prose linting (`docs/adr/documentation/prose-linting.md`), we need to establish a foundational base style guide for technical prose, specifications, and architecture decision records. Clear and deterministic stylistic guidelines are vital not only for human engineers but also for AI agents generating and parsing technical documentation. We evaluated leading industry style guides—specifically Google and Microsoft—to determine the optimal base ruleset.
+Following our adoption of Vale for Abstract Syntax Tree (AST)-aware prose linting (`docs/adr/documentation/prose-linting.md`), we need to establish a foundational base style guide for technical prose, specifications, and architecture decision records. Clear and deterministic stylistic guidelines are vital not only for human engineers but also for AI agents generating and parsing technical documentation. We evaluated leading industry style guides—specifically Google and Microsoft—to determine the optimal base ruleset.
 
 ## Decision Drivers
 * **AI Compatibility & Technical Precision:** The selected style guide must prioritize technical clarity, exact terminology, and structural rigor, optimizing comprehension and generation accuracy for AI agents.

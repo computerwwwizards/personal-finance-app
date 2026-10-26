@@ -2,23 +2,23 @@
 status: "live"
 ---
 
-# ADR: Adopt Vale v3.14.1 for AST-Aware Prose and Specification Linting
+# ADR: Adopt Vale v3.14.1 for Abstract Syntax Tree (AST)-Aware Prose and Specification Linting
 
 ## Context and Problem Statement
-ADRs, RFCs, and system specifications are executable contracts; ambiguity and structural decay degrade system integrity (specially for AI agents creating the code) just as severely as uncompilable source code. However, enforcing prose quality inside technical repositories fails when the linting engine treats structured markup (Markdown, AsciiDoc, MDX, and inline source-code docstrings) as flat character arrays. 
+ADRs, RFCs, and system specifications are executable contracts; ambiguity and structural decay degrade system integrity (specially for AI agents creating the code) just as severely as uncompilable source code. However, enforcing prose quality inside technical repositories fails when the linting engine treats structured markup (Markdown, AsciiDoc, Markdown JSX (MDX), and inline source-code docstrings) as flat character arrays.
 
 Without syntactic and lexical boundaries, naive linters parse fenced code blocks, inline type signatures, URI paths, and YAML frontmatter as natural language prose—generating false-positive cascades that force engineers to disable verification gates. Furthermore, writing and maintaining custom prose rules from scratch is an unforced operational tax when industry-standard technical writing guidelines already exist. We require a deterministic, syntax-aware static analysis engine pinned to an immutable release artifact that provides built-in linting out of the box and natively composes industry-grade rulesets (`Google`, `Microsoft`, `RedHat`) without requiring a foreign language runtime.
 
 ## Decision Drivers
 * **Turnkey & Industry-Grade Ruleset Composition:** The engine must include a built-in default ruleset (`Vale`) out of the box and natively ingest battle-tested upstream engineering style guides (`Google`, `Microsoft`, `RedHat`, `write-good`, `alex`) via declarative configuration, eliminating the need to author or maintain custom rule definitions.
 * **Syntactic AST & Markup Scoping:** The engine must construct an Abstract Syntax Tree (AST) of the host document (Markdown, HTML, TSX/TS docstrings via Tree-sitter) to programmatically isolate prose scopes (`heading`, `paragraph`, `table.cell`) and strip code spans, fenced blocks, and mathematical expressions prior to rule evaluation.
-* **Zero Foreign Runtime Dependency:** The linter must distribute as a self-contained, statically compiled binary with deterministic SHA-256 checksums, avoiding Python virtual environments (`pip`/`venv`) or C-toolchains in CI and local developer environments.
+* **Zero Foreign Runtime Dependency:** The linter must distribute as a self-contained, statically compiled binary with deterministic Secure Hash Algorithm (SHA)-256 checksums, avoiding Python virtual environments (`pip`/`venv`) or C-toolchains in CI and local developer environments.
 * **Sub-Second Concurrent Execution:** Linting across workspace specifications must execute concurrently across CPU cores, completing in milliseconds to remain viable for pre-commit hooks and real-time Language Server Protocol (LSP) editor diagnostics.
 
 ## Considered Options
 * **Vale (`v3.14.1`)**
 * **proselint**
-* **GNU diction / style (`style`)**
+* **GNU's Not Unix (GNU) diction / style (`style`)**
 
 ## Decision Outcome
 Chosen option: "**Vale (`v3.14.1`),**" because it combines AST-driven markup pruning and a zero-dependency Go binary with turnkey support for the built-in `Vale` style and declarative composition of industry-standard packages (`Google`, `Microsoft`) via `vale sync`.
@@ -30,7 +30,7 @@ Chosen option: "**Vale (`v3.14.1`),**" because it combines AST-driven markup pru
 
 ### Trade-offs
 * Bad, because hydrating external style packages (`Google`, `Microsoft`) requires running `vale sync` over the network during initial environment setup or CI initialization unless the fetched `StylesPath` directory is committed or cached.
-* Bad, because upstream rulesets relying on part-of-speech (POS) tagging heuristics occasionally flag overloaded domain terminology, requiring minor additions to a flat-file vocabulary list (`accept.txt`).
+* Bad, because upstream rulesets relying on Part-of-Speech (POS) tagging heuristics occasionally flag overloaded domain terminology, requiring minor additions to a flat-file vocabulary list (`accept.txt`).
 
 ### Confirmation
 Compliance is enforced via three deterministic verification gates:
@@ -41,7 +41,7 @@ Compliance is enforced via three deterministic verification gates:
 ## Pros and Cons of the Options
 
 ### Vale (`v3.14.1`)
-A syntax-aware, concurrent prose linter written in Go (`github.com/vale-cli/vale/v3`) that parses markup formats into ASTs and applies both a built-in default ruleset (`Vale`) and composable upstream style packages hosted in the official `vale-cli` package registry.
+A syntax-aware, concurrent prose linter written in Go (`github.com/vale-cli/vale/v3`) that parses markup formats into Abstract Syntax Trees (AST) and applies both a built-in default ruleset (`Vale`) and composable upstream style packages hosted in the official `vale-cli` package registry.
 
 * Good, because it ships with the built-in `Vale` style (spelling, repeated words, capitalization) out of the box and supports one-line installation of official `Google`, `Microsoft`, `RedHat`, and `write-good` rulesets via `Packages`.
 * Good, because it parses Markdown, MDX, HTML, and source-code comments (`.ts`, `.tsx`, `.rs`, `.go`) into scoped AST nodes, completely bypassing code blocks and literal tokens.
@@ -53,13 +53,13 @@ A syntax-aware, concurrent prose linter written in Go (`github.com/vale-cli/vale
 A Python-based CLI prose linter that aggregates stylistic advice from literary editors (Garner, Strunk & White, Orwell) into hardcoded Python regular-expression modules evaluated over raw text buffers.
 
 * Good, because its built-in checks work out of the box for literary prose without initial configuration.
-* Neutral, because it outputs standard UNIX `line:column` or JSON diagnostics compatible with generic linter aggregators.
+* Neutral, because it outputs standard Unix (UNIX) `line:column` or JSON diagnostics compatible with generic linter aggregators.
 * Bad, because its hardcoded rules target literary essays rather than software engineering specifications, lacking support for technical style standards like the Google or Microsoft developer documentation guides.
 * Bad, because it lacks a markup AST parser; it scans raw character streams with regular expressions, causing inline code snippets, CLI flags, and URLs in technical specs to trigger massive false-positive cascades.
 * Bad, because it requires provisioning a Python runtime and dependency tree, executing single-threaded regex passes that scale poorly.
 
-### GNU diction / style (`style`)
-A legacy C utility originating from AT&T UNIX (bundled in GNU `diction`) that computes surface-level readability indices (Flesch-Kincaid, Coleman-Liau, ARI) and word-usage warnings over plain-text streams.
+### GNU's Not Unix (GNU) diction / style (`style`)
+A legacy C utility originating from AT&T UNIX (bundled in GNU `diction`) that computes surface-level readability indices (Flesch-Kincaid, Coleman-Liau, Automated Readability Index (ARI)) and word-usage warnings over plain-text streams.
 
 * Good, because it is compiled in C with a negligible memory footprint and computes mathematical readability formulas deterministically out of the box.
 * Bad, because it cannot ingest or compose modern industry style guides (`Google`, `Microsoft`), limiting checks to archaic UNIX phrase tables and syllable math.
