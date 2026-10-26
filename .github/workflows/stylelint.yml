@@ -20,9 +20,10 @@ jobs:
         with:
           node-version: 26
 
-      - name: Install Stylelint Dependencies via npm (No Scripts)
+      - name: Install Stylelint Dependencies via npm (Independent of Repository Code)
         run: |
-          npm install stylelint@^17.16.0 stylelint-config-standard@^39.0.0 --ignore-scripts --no-audit
+          mkdir -p /tmp/stylelint-runner
+          npm install --prefix /tmp/stylelint-runner stylelint@^17.16.0 stylelint-config-standard@^39.0.0 --ignore-scripts --no-audit --legacy-peer-deps
 
       - name: Run Stylelint in Airgapped Network Namespace
         run: |
@@ -36,7 +37,7 @@ jobs:
             --init-groups \
             --inh-caps=-all \
             --no-new-privs \
-            ./node_modules/.bin/stylelint "**/*.css" --allow-empty-input -f json 2>&1)
+            /tmp/stylelint-runner/node_modules/.bin/stylelint "**/*.css" --allow-empty-input -f json 2>&1)
           STYLELINT_EXIT=$?
           set -e
 
