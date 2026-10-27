@@ -9,6 +9,7 @@ RFC
 Rolldown
 Shiki
 Strunk
+Stylelint
 Tailwind
 Tera
 TOML

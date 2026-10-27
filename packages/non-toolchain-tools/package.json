@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "plop": "^4.0.5"
+    "plop": "^4.0.5",
+    "stylelint": "^17.16.0"
   }
 }
