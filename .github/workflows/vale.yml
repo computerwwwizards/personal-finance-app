@@ -54,25 +54,31 @@ jobs:
             exit 2
           fi
 
+          if [ -n "$VALE_JSON" ] && echo "$VALE_JSON" | jq -e 'type == "object"' >/dev/null 2>&1; then
+            IS_VALID_JSON=true
+          else
+            IS_VALID_JSON=false
+          fi
+
           # 1. Emit inline PR Annotations (::error, ::warning, ::notice)
-          if [ -n "$VALE_JSON" ] && [ "$VALE_JSON" != "{}" ]; then
+          if [ "$IS_VALID_JSON" = true ] && [ "$VALE_JSON" != "{}" ]; then
             echo "$VALE_JSON" | jq -r '
-              to_entries[] |
+              to_entries[]? |
               .key as $file |
-              .value[] |
+              (.value[]? |
               (if .Severity == "error" then "error" elif .Severity == "warning" then "warning" else "notice" end) as $level |
-              "::\($level) file=\($file),line=\(.Line),col=\(.Span[0]),endColumn=\(.Span[1]),title=\(.Check) (\(.Severity))::\(.Message)"
+              "::\($level) file=\($file),line=\(.Line),col=\(.Span[0]),endColumn=\(.Span[1]),title=\(.Check) (\(.Severity))::\(.Message)")
             '
           fi
 
           # 2. Build Markdown Report in GitHub Step Summary
           {
             echo "## Vale Prose Linting Report"
-            if [ -z "$VALE_JSON" ] || [ "$VALE_JSON" = "{}" ]; then
+            if [ "$IS_VALID_JSON" != true ] || [ "$VALE_JSON" = "{}" ]; then
               echo "✅ **No errors, warnings, or suggestions found.**"
             else
               COUNTS=$(echo "$VALE_JSON" | jq -r '
-                [ .[][] ] |
+                [ .[][]? ] |
                 "🔴 **Errors:** \(map(select(.Severity=="error")) | length) | " +
                 "🟡 **Warnings:** \(map(select(.Severity=="warning")) | length) | " +
                 "🔵 **Suggestions:** \(map(select(.Severity=="suggestion")) | length)"
@@ -82,10 +88,10 @@ jobs:
               echo "| File | Line:Col | Severity | Rule | Message |"
               echo "| :--- | :--- | :--- | :--- | :--- |"
               echo "$VALE_JSON" | jq -r '
-                to_entries[] |
+                to_entries[]? |
                 .key as $file |
-                .value[] |
-                "| `\($file)` | `\(.Line):\(.Span[0])-\(.Span[1])` | **\(.Severity | ascii_upcase)** | `\(.Check)` | \(.Message | gsub("\\|"; "\\|")) |"
+                (.value[]? |
+                "| `\($file)` | `\(.Line):\(.Span[0])-\(.Span[1])` | **\(.Severity | ascii_upcase)** | `\(.Check)` | \(.Message | gsub("\\|"; "\\|")) |")
               '
             fi
           } >> "$GITHUB_STEP_SUMMARY"
