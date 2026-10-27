@@ -164,3 +164,22 @@ Tools and utilities used for scaffolding and generating consistent workspace tem
 
 |name|version|notes|link|
 |---|---|---|---|
+
+## Build Tools
+Tools and bundlers used to serve development servers and compile web application assets.
+
+### Trial
+
+|name|version|notes|link|
+|---|---|---|---|
+
+### Approved
+
+|name|version|notes|link|
+|---|---|---|---|
+|Vite|^8.0.0|Frontend build tool supporting complex bundling and multi-page application dev servers|[`vite.md`](./docs/stack/build-tools/approved/vite.md)|
+
+### Forbidden
+
+|name|version|notes|link|
+|---|---|---|---|

@@ -3,7 +3,9 @@ ASCII
 Astro
 Astro's
 Eleventy
+HMR
 Hygen
+MPA
 Oxlint
 RFC
 Rolldown
@@ -14,6 +16,7 @@ Tailwind
 Tera
 TOML
 TSX
+Vite
 Vue
 Zod
 proselint
