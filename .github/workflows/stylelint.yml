@@ -29,6 +29,7 @@ jobs:
           set +e
           RUNNER_UID=$(id -u "$USER")
           RUNNER_GID=$(id -g "$USER")
+          STYLELINT_BIN=$(which stylelint)
 
           STYLELINT_JSON=$(sudo unshare -n -- setpriv \
             --reuid="$RUNNER_UID" \
@@ -36,7 +37,7 @@ jobs:
             --init-groups \
             --inh-caps=-all \
             --no-new-privs \
-            stylelint "**/*.css" --allow-empty-input -f json 2>&1)
+            env PATH="$PATH" "$STYLELINT_BIN" "**/*.css" --allow-empty-input -f json 2>&1)
           STYLELINT_EXIT=$?
           set -e
 
