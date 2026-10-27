@@ -3,9 +3,7 @@ ASCII
 Astro
 Astro's
 Eleventy
-HMR
 Hygen
-MPA
 Oxlint
 RFC
 Rolldown
