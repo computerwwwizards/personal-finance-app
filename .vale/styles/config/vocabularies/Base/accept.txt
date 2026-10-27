@@ -14,6 +14,7 @@ Tailwind
 Tera
 TOML
 TSX
+Vite
 Vue
 Zod
 proselint
